@@ -69,6 +69,7 @@
     <Compile Include="ShowAndUpdateSeats.Designer.cs">
       <DependentUpon>ShowAndUpdateSeats.cs</DependentUpon>
     </Compile>
+    <Compile Include="Validators.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
