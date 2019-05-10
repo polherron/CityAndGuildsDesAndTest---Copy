@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CityAndGuildsDesAndTest
 {
-    class Validators
+    class Utilities
     {
         public static bool ValidateDate(string date)
         {

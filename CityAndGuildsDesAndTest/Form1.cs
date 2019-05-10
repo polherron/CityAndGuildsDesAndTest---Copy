@@ -133,9 +133,9 @@ namespace CityAndGuildsDesAndTest
 
         private bool ValidInput()
         {
-            return (Validators.ValidateCourse(txtCourseTitle.Text)
-                && Validators.ValidateDate(txtCourseDate.Text)
-                && Validators.ValidatePrice(txtPrice.Text));
+            return (Utilities.ValidateCourse(txtCourseTitle.Text)
+                && Utilities.ValidateDate(txtCourseDate.Text)
+                && Utilities.ValidatePrice(txtPrice.Text));
         }
 
         private void SaveRecord()
