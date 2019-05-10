@@ -31,7 +31,12 @@ namespace CityAndGuildsDesAndTest
         private void PopulateList()
         {
             try
-            {   // Open the text file using a stream reader.
+            {
+                //We need to clear the list if it is updated to prevent duplicate
+                //entries
+                myCourseList.Clear();
+
+                // Open the text file using a stream reader.
                 using (StreamReader sr = new StreamReader(@path))
                 {
                     string myString = string.Empty;
@@ -43,6 +48,13 @@ namespace CityAndGuildsDesAndTest
                         myCourse = RemoveSpeechMarks(myCourse);
                         myCourseList.Add(myCourse);
                     }
+                }
+                cbCourses.Items.Clear();
+                var distinctItems = myCourseList.Select(o => o.CourseName).Distinct();
+                foreach (var item in distinctItems)
+                {
+                    cbCourses.Items.Add(item);
+
                 }
             }
             catch (Exception ex)
@@ -61,12 +73,24 @@ namespace CityAndGuildsDesAndTest
             return myCourse;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonBooking_Click(object sender, EventArgs e)
         {
-            ShowAndUpdateSeats ShowSeats = new ShowAndUpdateSeats(myCourseList,cbCourses.Text);
+            ShowAndUpdateSeats ShowSeats = new ShowAndUpdateSeats(myCourseList,cbCourses.Text, path);
             ShowSeats.Show();
         }
 
+        private void buttonAddCourse_Click(object sender, EventArgs e)
+        {
+            if (ValidInput())
+            {
+                SaveRecord();
+            }
+            else
+            {
+                MessageBox.Show("Invalid Course Inputs");
+            }
+
+        }
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             OpenFileDialog fdlg = new OpenFileDialog();
@@ -79,15 +103,20 @@ namespace CityAndGuildsDesAndTest
             {
                 path = fdlg.FileName;
                 PopulateList();
-                var distinctItems = myCourseList.Select(o => o.CourseName).Distinct();
-                foreach (var item in distinctItems)
-                {
-                    cbCourses.Items.Add(item);
-
-                }
             }
 
         }
+
+        //private void PopulateDDL()
+        //{
+        //    cbCourses.Refresh();
+        //    var distinctItems = myCourseList.Select(o => o.CourseName).Distinct();
+        //    foreach (var item in distinctItems)
+        //    {
+        //        cbCourses.Items.Add(item);
+
+        //    }
+        //}
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -111,19 +140,6 @@ namespace CityAndGuildsDesAndTest
 
         private void SaveRecord()
         {
-            string path = string.Empty;
-            OpenFileDialog fdlg = new OpenFileDialog();
-            fdlg.Title = "Course Application";
-            fdlg.InitialDirectory = @"c:\";
-            fdlg.Filter = "All files (*.*)|*.*|All files (*.*)|*.*";
-            fdlg.FilterIndex = 2;
-            fdlg.RestoreDirectory = true;
-            if (fdlg.ShowDialog() == DialogResult.OK)
-            {
-                path = fdlg.FileName;
-
-            }
-            // This text is added only once to the file.
             if (!File.Exists(path))
             {
                 // Create a file to write to.
@@ -138,12 +154,18 @@ namespace CityAndGuildsDesAndTest
             {
                 using (StreamWriter sw = File.AppendText(path))
                 {
-                    sw.WriteLine(txtCourseTitle.Text);
-                    sw.WriteLine(txtCourseDate.Text);
-                    sw.WriteLine(txtPrice.Text);
-                    sw.WriteLine("FFFFFFFFFFFF");
+                    sw.WriteLine("\"" + txtCourseTitle.Text + "\"");
+                    sw.WriteLine("\"" + txtCourseDate.Text + "\"");
+                    sw.WriteLine("\""+txtPrice.Text + "\"");
+                    sw.WriteLine("\"" + "FFFFFFFFFFFF" + "\"");
                 }
             }
+            PopulateList();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -38,12 +38,12 @@
             // 
             this.pnlSeats.Location = new System.Drawing.Point(88, 220);
             this.pnlSeats.Name = "pnlSeats";
-            this.pnlSeats.Size = new System.Drawing.Size(772, 590);
+            this.pnlSeats.Size = new System.Drawing.Size(772, 398);
             this.pnlSeats.TabIndex = 0;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(771, 857);
+            this.btnSave.Location = new System.Drawing.Point(776, 48);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 1;

@@ -17,6 +17,7 @@ namespace CityAndGuildsDesAndTest
         //List<TextBox> myTextBoxes = new List<TextBox>();
         List<Label> myLabels = new List<Label>();
         string course = string.Empty;
+        string path = string.Empty;
 
 
 
@@ -25,11 +26,12 @@ namespace CityAndGuildsDesAndTest
         /// Called from initial form
         /// Accepts a list of courses and course name
         /// </summary>
-        public ShowAndUpdateSeats(List<Course> myCourses, string course)
+        public ShowAndUpdateSeats(List<Course> myCourses, string course, string path)
         {
             InitializeComponent();
             this.myCourses = myCourses;
             this.course = course;
+            this.path = path;
         }
 
         private void ShowAndUpdateSeats_Load(object sender, EventArgs e)
@@ -183,7 +185,7 @@ namespace CityAndGuildsDesAndTest
         {
             try
             {   // Open the text file using a stream writer.
-                using (StreamWriter sr = new StreamWriter(@"C:\PAUL\cProjectFiles\DevDesTest.txt"))
+                using (StreamWriter sr = new StreamWriter(path))
                 {
                     string myString = string.Empty;
 
