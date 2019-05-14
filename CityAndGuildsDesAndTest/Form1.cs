@@ -140,27 +140,13 @@ namespace CityAndGuildsDesAndTest
 
         private void SaveRecord()
         {
-            if (!File.Exists(path))
-            {
-                // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine("\"" + txtCourseTitle.Text + "\"");
-                    sw.WriteLine("\"" + txtCourseDate.Text + "\"");
-                    sw.WriteLine("\"" + txtPrice.Text + "\"");
-                    sw.WriteLine("\"" + "FFFFFFFFFFFF" + "\"");
-                }
-            }
-            else
-            {
-                using (StreamWriter sw = File.AppendText(path))
-                {
-                    sw.WriteLine("\"" + txtCourseTitle.Text + "\"");
-                    sw.WriteLine("\"" + txtCourseDate.Text + "\"");
-                    sw.WriteLine("\"" + txtPrice.Text + "\"");
-                    sw.WriteLine("\"" + "FFFFFFFFFFFF" + "\"");
-                }
-            }
+
+            string courseName = "\"" + txtCourseTitle.Text + "\"";
+            string courseDate = "\"" + txtCourseDate.Text + "\"";
+            string coursePrice = "\"" + txtPrice.Text + "\"";
+            string seats = "\"" + "FFFFFFFFFFFF" + "\"";
+            InitialCourse myCourse = new InitialCourse(courseName, courseDate, coursePrice, seats);
+            FileIO.WriteToFile(path,true,myCourse);
             PopulateList();
         }
 
