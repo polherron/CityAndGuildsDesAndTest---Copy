@@ -183,33 +183,14 @@ namespace CityAndGuildsDesAndTest
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            try
-            {   // Open the text file using a stream writer.
-                using (StreamWriter sr = new StreamWriter(path))
-                {
-                    string myString = string.Empty;
-
-                    foreach (var item in myCourses)
-                    {
-                        myString += String.Format(@"{0}",item.CourseName);
-                        myString += Environment.NewLine;
-                        myString += String.Format(@"{0}", item.Date);
-                        myString += Environment.NewLine;
-                        myString += String.Format(@"{0}", item.Price);
-                        myString += Environment.NewLine;
-                        myString += String.Format(@"{0}", item.Seats);
-                        myString += Environment.NewLine;
-                    }
-
-                    //remove trailing newline character
-                    myString = myString.ToString().TrimEnd('\n');
-                    sr.Write(myString);
-                }
-            }
-            catch (Exception ex)
+            string myString = string.Empty;
+            bool append = false;
+            foreach (var item in myCourses)
             {
-                MessageBox.Show(ex.Message, "Error");
+                FileIO.WriteToFile(path, append, item);
+                append = true;
             }
+
         }
     }
 }
