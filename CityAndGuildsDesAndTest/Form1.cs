@@ -145,9 +145,10 @@ namespace CityAndGuildsDesAndTest
                 // Create a file to write to.
                 using (StreamWriter sw = File.CreateText(path))
                 {
-                    sw.WriteLine(txtCourseTitle.Text);
-                    sw.WriteLine(txtCourseDate.Text);
-                    sw.WriteLine(txtPrice.Text);
+                    sw.WriteLine("\"" + txtCourseTitle.Text + "\"");
+                    sw.WriteLine("\"" + txtCourseDate.Text + "\"");
+                    sw.WriteLine("\"" + txtPrice.Text + "\"");
+                    sw.WriteLine("\"" + "FFFFFFFFFFFF" + "\"");
                 }
             }
             else
