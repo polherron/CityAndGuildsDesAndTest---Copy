@@ -68,6 +68,7 @@ namespace CityAndGuildsDesAndTest
                             if (item.Seats[j] == 'B')
                             {
                                 a.Text = "B";
+                                a.BackColor = Color.Blue;
                             }
                             else
                             {
@@ -187,12 +188,25 @@ namespace CityAndGuildsDesAndTest
         {
             string myString = string.Empty;
             bool append = false;
+            bool error = false;
             foreach (var item in myCourses)
             {
-                FileIO.WriteToFile(path, append, item);
-                append = true;
+                //FileIO.WriteToFile returns true if write successful
+                //We need to change from overwrite to append after
+                //the first record overwrites existing file.
+                if(FileIO.WriteToFile(path, append, item))
+                {
+                    append = true;
+                }
+                else
+                {
+                    error = true;
+                }
             }
-
+            if (!error)
+            {
+                MessageBox.Show("File Saved");
+            }
         }
     }
 }

@@ -134,7 +134,7 @@ namespace CityAndGuildsDesAndTest
             string courseDate = "\"" + txtCourseDate.Text + "\"";
             string coursePrice = "\"" + txtPrice.Text + "\"";
             string seats = "\"" + "FFFFFFFFFFFF" + "\"";
-            InitialCourse myCourse = new InitialCourse(courseName, courseDate, coursePrice, seats);
+            Course myCourse = new Course(courseName, courseDate, coursePrice, seats, myCourseList.Count());
             if (FileIO.WriteToFile(@path, true, myCourse))
             {
                 PopulateList(false);
