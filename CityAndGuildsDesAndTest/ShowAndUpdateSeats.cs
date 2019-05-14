@@ -47,7 +47,6 @@ namespace CityAndGuildsDesAndTest
                 pointX = 30;
                 int pointY = 21;
                 int i = 0;
-                int ElementNumber = 0;
 
                 CreateFormColumnHeaders(pointX, pointY);
 
@@ -78,7 +77,7 @@ namespace CityAndGuildsDesAndTest
                             a.Location = new Point(pointX, pointY);
                             a.Click += txtBox_Click;
                             a.Seat = j;
-                            a.ElementNumber = ElementNumber;
+                            a.ElementNumber = item.Element;
                             pnlSeats.Controls.Add(a);
                             //myTextBoxes.Add(a);
                             pointX += 30;
@@ -87,7 +86,6 @@ namespace CityAndGuildsDesAndTest
                         AddDateAndCostLabels(pointX, pointY, item);
 
                     }
-                    ElementNumber++;
                 }
                 pnlSeats.Show();
 

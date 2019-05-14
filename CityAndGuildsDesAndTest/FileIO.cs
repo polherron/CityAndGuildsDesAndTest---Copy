@@ -9,7 +9,7 @@ namespace CityAndGuildsDesAndTest
 {
     class FileIO
     {
-        internal static bool WriteToFile(string path, bool append, InitialCourse courseRecord)
+        internal static bool WriteToFile(string path, bool append, Course courseRecord)
         {
             try
             {

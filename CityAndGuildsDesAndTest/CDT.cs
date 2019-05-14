@@ -7,19 +7,30 @@ using System.ComponentModel;
 
 namespace CityAndGuildsDesAndTest
 {
-    public class InitialCourse
+    public class Course
     {
         private string courseName;
         private string date;
         private string price;
         private string seats;
+        private int element;
 
-        public InitialCourse(string courseName, string date, string price, string seats)
+        public Course(string courseName, string date, string price, string seats, int element)
         {
             this.courseName = courseName;
             this.date = date;
             this.price = price;
             this.seats = seats;
+            this.element = element;
+        }
+
+        public Course(string courseName, string date, string price, string seats)
+        {
+            this.courseName = courseName;
+            this.date = date;
+            this.price = price;
+            this.seats = seats;
+            this.element = 0;
         }
 
         public string CourseName
@@ -44,19 +55,18 @@ namespace CityAndGuildsDesAndTest
         {
             get { return seats; }
             set { seats = value; }
-
         }
 
-    }
-
-    public class Course : InitialCourse
-    {
-        public Course(string courseName, string date, string price, string seats, int element) : base(courseName, date, price, seats)
+        public int Element
         {
+            get { return element; }
+            set { element = value; }
         }
 
-        public int Element { get; set; }
+
     }
+
+
 
     public class FileReadReturnType
     {
