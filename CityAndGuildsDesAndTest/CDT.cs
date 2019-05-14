@@ -51,14 +51,22 @@ namespace CityAndGuildsDesAndTest
 
     public class Course : InitialCourse
     {
-
-        private int element;
-
         public Course(string courseName, string date, string price, string seats, int element) : base(courseName, date, price, seats)
         {
         }
 
-        public int Element { get => element; set => element = value; }
+        public int Element { get; set; }
+    }
+
+    public class FileReadReturnType
+    {
+        Exception ex;
+        List<Course> courses;
+        bool success;
+
+        public Exception Ex { get => ex; set => ex = value; }
+        public List<Course> Courses { get => courses; set => courses = value; }
+        public bool Success { get => success; set => success = value; }
     }
 }
 

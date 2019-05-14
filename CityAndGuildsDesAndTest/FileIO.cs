@@ -9,16 +9,24 @@ namespace CityAndGuildsDesAndTest
 {
     class FileIO
     {
-        internal static void WriteToFile(string path, bool append, InitialCourse courseRecord)
+        internal static bool WriteToFile(string path, bool append, InitialCourse courseRecord)
         {
+            try
+            {
                 // Create a file to write to.
-                using (StreamWriter sw = new StreamWriter(path, append)) 
+                using (StreamWriter sw = new StreamWriter(path, append))
                 {
                     sw.WriteLine(courseRecord.CourseName);
                     sw.WriteLine(courseRecord.Date);
                     sw.WriteLine(courseRecord.Price);
                     sw.WriteLine(courseRecord.Seats);
                 }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
 
         internal static bool CreateFile(string path)
@@ -30,8 +38,10 @@ namespace CityAndGuildsDesAndTest
                 // Delete the file if it exists.
                 if (!File.Exists(path))
                 {
-                    using (FileStream fs = File.Create(path));
-                    fileCreated = true;
+                    using (FileStream fs = File.Create(path))
+                    {
+                        fileCreated = true;
+                    }
                 }
             }
 
@@ -42,26 +52,42 @@ namespace CityAndGuildsDesAndTest
             return fileCreated;
         }
 
-        internal static List<Course> FileRead(string path)
+        internal static FileReadReturnType FileRead(string path)
         {
             List<Course> myCourseList = new List<Course>();
-            // Open the text file using a stream reader.
-            using (StreamReader sr = new StreamReader(@path))
-            {
-                string myString = string.Empty;
 
-                while (!sr.EndOfStream)
+            FileReadReturnType myReturnType = new FileReadReturnType();
+            // Open the text file using a stream reader.
+            try
+            {
+                using (StreamReader sr = new StreamReader(path))
                 {
-                    //myCourse constructor requires three strings.  Each Readline() reads the next line in the file.
-                    Course myCourse = new Course(sr.ReadLine(), sr.ReadLine(), sr.ReadLine(), sr.ReadLine(), myCourseList.Count());
-                    if (myCourse.CourseName != string.Empty)
+                    string myString = string.Empty;
+                    int count = 0;
+                    while (!sr.EndOfStream)
                     {
-                        myCourse = Utilities.RemoveSpeechMarks(myCourse);
-                        myCourseList.Add(myCourse);
+
+                        //myCourse constructor requires three strings.  Each Readline() reads the next line in the file.
+                        Course myCourse = new Course(sr.ReadLine(), sr.ReadLine(), sr.ReadLine(), sr.ReadLine(), count++);
+                        if (myCourse.CourseName != string.Empty)
+                        {
+                            myCourse = Utilities.RemoveSpeechMarks(myCourse);
+                            myCourseList.Add(myCourse);
+                        }
                     }
                 }
+                myReturnType.Courses = myCourseList;
+                myReturnType.Success = true;
+                myReturnType.Ex = null;
+                return myReturnType;
             }
-            return myCourseList;
+            catch(Exception ex)
+            {
+                myReturnType.Courses = null;
+                myReturnType.Success = false;
+                myReturnType.Ex = ex;
+                return myReturnType;
+            }
         }
 
     }

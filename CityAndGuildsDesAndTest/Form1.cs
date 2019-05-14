@@ -16,6 +16,8 @@ namespace CityAndGuildsDesAndTest
     {
         string path = string.Empty;
         List<Course> myCourseList = new List<Course>();
+        FileReadReturnType myDataRequest = new FileReadReturnType();
+
 
         public frmOpen()
         {         
@@ -28,32 +30,40 @@ namespace CityAndGuildsDesAndTest
 
         }
 
-        private void PopulateList()
+        private void PopulateList(bool openCall)
         {
-            try
-            {
                 //We need to clear the list if it is updated to prevent duplicate
                 //entries
                 myCourseList.Clear();
-                myCourseList = FileIO.FileRead(path);
+                myDataRequest = FileIO.FileRead(path);
 
-                cbCourses.Items.Clear();
-                var distinctItems = myCourseList.Select(o => o.CourseName).Distinct();
-                foreach (var item in distinctItems)
+                if (myDataRequest.Success)
                 {
-                    cbCourses.Items.Add(item);
+                    cbCourses.Items.Clear();
+                    var distinctItems = myDataRequest.Courses.Select(o => o.CourseName).Distinct();
+                    foreach (var item in distinctItems)
+                    {
+                        cbCourses.Items.Add(item);
 
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
-            }
+                else
+                {
+                if (openCall)
+                {
+                    MessageBox.Show("002 - File open error or dialog cancelled");
+                }
+                else
+                {
+                    MessageBox.Show("001 - File incorrect format or missing or dialog cancelled");
+                }
+                }
         }
 
         private void buttonBooking_Click(object sender, EventArgs e)
         {
-            ShowAndUpdateSeats ShowSeats = new ShowAndUpdateSeats(myCourseList,cbCourses.Text, path);
+            myDataRequest = FileIO.FileRead(path);
+            ShowAndUpdateSeats ShowSeats = new ShowAndUpdateSeats(myDataRequest.Courses,cbCourses.Text, path);
             ShowSeats.Show();
         }
 
@@ -80,7 +90,7 @@ namespace CityAndGuildsDesAndTest
             if (fdlg.ShowDialog() == DialogResult.OK)
             {
                 path = fdlg.FileName;
-                PopulateList();
+                PopulateList(true);
             }
 
         }
@@ -101,6 +111,7 @@ namespace CityAndGuildsDesAndTest
             if (ValidInput())
             {
                 SaveRecord();
+                PopulateList(false);
             }
             else
             {
@@ -124,8 +135,14 @@ namespace CityAndGuildsDesAndTest
             string coursePrice = "\"" + txtPrice.Text + "\"";
             string seats = "\"" + "FFFFFFFFFFFF" + "\"";
             InitialCourse myCourse = new InitialCourse(courseName, courseDate, coursePrice, seats);
-            FileIO.WriteToFile(path,true,myCourse);
-            PopulateList();
+            if (FileIO.WriteToFile(@path, true, myCourse))
+            {
+                PopulateList(false);
+            }
+            else
+            {
+                MessageBox.Show("File save error");
+            }
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
