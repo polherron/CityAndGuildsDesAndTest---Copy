@@ -157,7 +157,7 @@ namespace CityAndGuildsDesAndTest
                 {
                     sw.WriteLine("\"" + txtCourseTitle.Text + "\"");
                     sw.WriteLine("\"" + txtCourseDate.Text + "\"");
-                    sw.WriteLine("\""+txtPrice.Text + "\"");
+                    sw.WriteLine("\"" + txtPrice.Text + "\"");
                     sw.WriteLine("\"" + "FFFFFFFFFFFF" + "\"");
                 }
             }
