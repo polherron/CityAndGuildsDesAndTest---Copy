@@ -26,5 +26,15 @@ namespace CityAndGuildsDesAndTest
         {
             return (courseName.Length > 0 && courseName.Length < 20);
         }
+
+        public static Course RemoveSpeechMarks(Course myCourse)
+        {
+            myCourse.CourseName = myCourse.CourseName.Replace("\"", string.Empty);
+            myCourse.Date = myCourse.Date.Replace("\"", string.Empty);
+            myCourse.Price = myCourse.Price.Replace("\"", string.Empty);
+            myCourse.Seats = myCourse.Seats.Replace("\"", string.Empty);
+
+            return myCourse;
+        }
     }
 }

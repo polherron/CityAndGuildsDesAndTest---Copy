@@ -35,20 +35,8 @@ namespace CityAndGuildsDesAndTest
                 //We need to clear the list if it is updated to prevent duplicate
                 //entries
                 myCourseList.Clear();
+                myCourseList = FileIO.FileRead(path);
 
-                // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader(@path))
-                {
-                    string myString = string.Empty;
-
-                    while (!sr.EndOfStream)
-                    {
-                        //myCourse constructor requires three strings.  Each Readline() reads the next line in the file.
-                        Course myCourse = new Course(sr.ReadLine(), sr.ReadLine(), sr.ReadLine(), sr.ReadLine(),myCourseList.Count());
-                        myCourse = RemoveSpeechMarks(myCourse);
-                        myCourseList.Add(myCourse);
-                    }
-                }
                 cbCourses.Items.Clear();
                 var distinctItems = myCourseList.Select(o => o.CourseName).Distinct();
                 foreach (var item in distinctItems)
@@ -61,16 +49,6 @@ namespace CityAndGuildsDesAndTest
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-        }
-
-        private Course RemoveSpeechMarks(Course myCourse)
-        {
-            myCourse.CourseName = myCourse.CourseName.Replace("\"", string.Empty);
-            myCourse.Date = myCourse.Date.Replace("\"", string.Empty);
-            myCourse.Price = myCourse.Price.Replace("\"", string.Empty);
-            myCourse.Seats= myCourse.Seats.Replace("\"", string.Empty);
-
-            return myCourse;
         }
 
         private void buttonBooking_Click(object sender, EventArgs e)
