@@ -20,5 +20,27 @@ namespace CityAndGuildsDesAndTest
                     sw.WriteLine(courseRecord.Seats);
                 }
         }
+
+        internal static bool CreateFile(string path)
+        {
+
+            bool fileCreated = false;
+            try
+            {
+                // Delete the file if it exists.
+                if (!File.Exists(path))
+                {
+                    using (FileStream fs = File.Create(path)) ;
+                    fileCreated = true;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                fileCreated = false;
+            }
+            return fileCreated;
+        }
+
     }
 }

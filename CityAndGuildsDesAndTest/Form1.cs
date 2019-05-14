@@ -154,5 +154,28 @@ namespace CityAndGuildsDesAndTest
         {
             this.Close();
         }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fdlg = new SaveFileDialog();
+            fdlg.Title = "Course Application";
+            fdlg.InitialDirectory = @"c:\";
+            fdlg.Filter = "All files (*.*)|*.*|All files (*.*)|*.*";
+            fdlg.FilterIndex = 2;
+            fdlg.RestoreDirectory = true;
+            if (fdlg.ShowDialog() == DialogResult.OK)
+            {
+                path = fdlg.FileName;
+                if (FileIO.CreateFile(path))
+                {
+                    MessageBox.Show("File Created at " + path);
+                }
+                else
+                {
+                    MessageBox.Show("File Not Created  " + path);
+                }
+            }
+
+        }
     }
 }
