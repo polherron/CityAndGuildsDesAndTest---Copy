@@ -29,6 +29,34 @@ namespace CityAndGuildsDesAndTest
             }
         }
 
+        internal static bool WriteToFile(string path, bool append, List<Course> courseRecords)
+        {
+
+            string output = string.Empty;
+
+            foreach (var courseRecord in courseRecords)
+            {
+                output += courseRecord.CourseName + "\n";
+                output += courseRecord.Date + "\n";
+                output += courseRecord.Price + "\n";
+                output += courseRecord.Seats + "\n";
+            }
+            try
+            {
+                // Create a file to write to.
+                using (StreamWriter sw = new StreamWriter(path, append))
+                {
+                    sw.WriteLine(output);
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         internal static bool CreateFile(string path)
         {
 

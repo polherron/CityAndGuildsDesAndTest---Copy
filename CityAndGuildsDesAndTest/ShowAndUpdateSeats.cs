@@ -187,23 +187,16 @@ namespace CityAndGuildsDesAndTest
             string myString = string.Empty;
             bool append = false;
             bool error = false;
-            foreach (var item in myCourses)
-            {
                 //FileIO.WriteToFile returns true if write successful
                 //We need to change from overwrite to append after
                 //the first record overwrites existing file.
-                if(FileIO.WriteToFile(path, append, item))
-                {
-                    append = true;
+                if(FileIO.WriteToFile(path, append, myCourses))
+                { 
+                    MessageBox.Show("File Saved");
                 }
-                else
-                {
-                    error = true;
-                }
-            }
-            if (!error)
+            else
             {
-                MessageBox.Show("File Saved");
+                MessageBox.Show("001-Fuile write error");
             }
         }
     }
