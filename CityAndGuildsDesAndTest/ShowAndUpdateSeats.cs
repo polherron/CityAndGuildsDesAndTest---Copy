@@ -39,21 +39,20 @@ namespace CityAndGuildsDesAndTest
             try
             {
                 int rows = GetRows();
-                int pointX = 30;
                 lblCourse.Text = this.course;
 
                 //pnlSeats.Controls.Clear();
 
-                pointX = 30;
+                int pointX = 30;
                 int pointY = 21;
                 int i = 0;
 
                 CreateFormColumnHeaders(pointX, pointY);
 
                 //Set up dynamically rendered text boxes
-                foreach (var item in myCourses)
+                foreach (var myCourse in myCourses)
                 {
-                    if (item.CourseName.Equals(course))
+                    if (myCourse.CourseName.Equals(course))
                     {
                         pointX = 30;
                         pointY += 20 + i * 20;
@@ -64,7 +63,7 @@ namespace CityAndGuildsDesAndTest
 
                             CustomTextBox a = new CustomTextBox();
                             a.Width = 20;
-                            if (item.Seats[j] == 'B')
+                            if (myCourse.Seats[j] == 'B')
                             {
                                 a.Text = "B";
                                 a.BackColor = Color.Blue;
@@ -77,13 +76,13 @@ namespace CityAndGuildsDesAndTest
                             a.Location = new Point(pointX, pointY);
                             a.Click += txtBox_Click;
                             a.Seat = j;
-                            a.ElementNumber = item.Element;
+                            a.ElementNumber = myCourse.Element;
                             pnlSeats.Controls.Add(a);
                             //myTextBoxes.Add(a);
                             pointX += 30;
                         }
 
-                        AddDateAndCostLabels(pointX, pointY, item);
+                        AddDateAndCostLabels(pointX, pointY, myCourse);
 
                     }
                 }
