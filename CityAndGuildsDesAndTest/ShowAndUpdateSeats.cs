@@ -55,7 +55,7 @@ namespace CityAndGuildsDesAndTest
                     if (myCourse.CourseName.Equals(course))
                     {
                         pointX = 30;
-                        pointY += 20 + i * 20;
+                        pointY += 25;
                         i++;
 
                         for (int j = 0; j < 12; j++)

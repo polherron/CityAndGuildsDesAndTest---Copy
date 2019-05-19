@@ -132,17 +132,18 @@ namespace CityAndGuildsDesAndTest
                         }
                     }
 
+                    SortByDate(myCourseList);
                     //Order list by date
-                    orderedCourses = myCourseList.OrderBy(x => Convert.ToDateTime(x.Date)).ToList();
+                    //orderedCourses = myCourseList.OrderBy(x => Convert.ToDateTime(x.Date)).ToList();
 
                     //Add list element number to each course
-                    for (int i = 0; i < orderedCourses.Count; i++)
+                    for (int i = 0; i < myCourseList.Count; i++)
                     {
-                        orderedCourses[i].Element = i;
+                        myCourseList[i].Element = i;
                     }
 
                 }
-                myReturnType.Courses = orderedCourses;
+                myReturnType.Courses = myCourseList;
                 myReturnType.Success = true;
                 myReturnType.Ex = null;
                 return myReturnType;
@@ -156,6 +157,28 @@ namespace CityAndGuildsDesAndTest
             }
         }
 
-
+        /// <summary>
+        /// Bubble sort example
+        /// </summary>
+        /// <param name="myCourseList"></param>
+        private static void SortByDate(List<Course> myCourseList)
+        {
+            bool swapped = false;
+            Course temp;
+            do 
+            {
+                swapped = false;
+                for (int i = 0; i < myCourseList.Count-1; i++)
+                {
+                    if (Convert.ToDateTime(myCourseList[i].Date) > Convert.ToDateTime(myCourseList[i + 1].Date))
+                    {
+                        temp = myCourseList[i];
+                        myCourseList[i] = myCourseList[i + 1];
+                        myCourseList[i + 1] = temp;
+                        swapped = true;
+                    }
+                }
+            }while (swapped);
+        }
     }
 }
