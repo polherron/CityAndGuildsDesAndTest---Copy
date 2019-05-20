@@ -165,10 +165,14 @@ namespace CityAndGuildsDesAndTest
         {
             bool swapped = false;
             Course temp;
+            int count = myCourseList.Count;
             do 
             {
+                //We can decrement the counter because after each iteration 
+                //in bubble sort the last element updated will have the latest date.
+                count--;
                 swapped = false;
-                for (int i = 0; i < myCourseList.Count-1; i++)
+                for (int i = 0; i < count; i++)
                 {
                     if (Convert.ToDateTime(myCourseList[i].Date) > Convert.ToDateTime(myCourseList[i + 1].Date))
                     {
