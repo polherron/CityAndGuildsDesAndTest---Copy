@@ -132,9 +132,11 @@ namespace CityAndGuildsDesAndTest
                         }
                     }
 
+                    //Order list using bubble sort
                     SortByDate(myCourseList);
-                    //Order list by date
-                    //orderedCourses = myCourseList.OrderBy(x => Convert.ToDateTime(x.Date)).ToList();
+
+                    //Order list by date using LINQ expression (faster than bubble sort on average)
+                    //myCourseList = myCourseList.OrderBy(x => Convert.ToDateTime(x.Date)).ToList();
 
                     //Add list element number to each course
                     for (int i = 0; i < myCourseList.Count; i++)
@@ -168,7 +170,7 @@ namespace CityAndGuildsDesAndTest
             int count = myCourseList.Count;
             do 
             {
-                //We can decrement the counter because after each iteration 
+                //We can decrement the counter becse after each iteration 
                 //in bubble sort the last element updated will have the latest date.
                 count--;
                 swapped = false;
