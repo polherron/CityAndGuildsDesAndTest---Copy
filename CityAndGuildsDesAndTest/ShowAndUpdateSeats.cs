@@ -179,10 +179,19 @@ namespace CityAndGuildsDesAndTest
             string myString = string.Empty;
             bool append = false;
             bool error = false;
-                //FileIO.WriteToFile returns true if write successful
-                //We need to change from overwrite to append after
-                //the first record overwrites existing file.
-                if(FileIO.WriteToFile(path, append, myCourses))
+
+            string output = string.Empty;
+            foreach (var courseRecord in myCourses)
+            {
+                output += courseRecord.CourseName + "\n";
+                output += courseRecord.Date + "\n";
+                output += courseRecord.Price + "\n";
+                output += courseRecord.Seats + "\n";
+            }
+            //FileIO.WriteToFile returns true if write successful
+            //We need to change from overwrite to append after
+            //the first record overwrites existing file.
+            if (FileIO.WriteToFile(path, append, output))
                 { 
                     MessageBox.Show("File Saved");
                 }

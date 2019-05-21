@@ -145,11 +145,11 @@ namespace CityAndGuildsDesAndTest
         private void SaveRecord()
         {
 
-            string courseName = "\"" + txtCourseTitle.Text + "\"";
-            string courseDate = "\"" + txtCourseDate.Text + "\"";
-            string coursePrice = "\"" + txtPrice.Text + "\"";
-            string seats = "\"" + "FFFFFFFFFFFF" + "\"";
-            Course myCourse = new Course(courseName, courseDate, coursePrice, seats, myCourseList.Count());
+            string courseName = "\"" + txtCourseTitle.Text + "\"" + "\n";
+            string courseDate = "\"" + txtCourseDate.Text + "\"" + "\n";
+            string coursePrice = "\"" + txtPrice.Text + "\"" + "\n";
+            string seats = "\"" + "FFFFFFFFFFFF" + "\"" + "\n";
+            string myCourse = courseName + courseDate + coursePrice + seats;
             if (FileIO.WriteToFile(@path, true, myCourse))
             {
                 PopulateList(false);

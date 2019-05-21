@@ -16,17 +16,14 @@ namespace CityAndGuildsDesAndTest
         /// <param name="append"></param>
         /// <param name="courseRecord"></param>
         /// <returns></returns>
-        internal static bool WriteToFile(string path, bool append, Course courseRecord)
+        internal static bool WriteToFile(string path, bool append, string courseRecord)
         {
             try
             {
                 // Create a file to write to.
                 using (StreamWriter sw = new StreamWriter(path, append))
                 {
-                    sw.WriteLine(courseRecord.CourseName);
-                    sw.WriteLine(courseRecord.Date);
-                    sw.WriteLine(courseRecord.Price);
-                    sw.WriteLine(courseRecord.Seats);
+                    sw.Write(courseRecord);
                 }
                 return true;
             }
@@ -36,41 +33,7 @@ namespace CityAndGuildsDesAndTest
             }
         }
 
-        /// <summary>
-        /// Uses streamwriter to write to a file
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="append"></param>
-        /// <param name="courseRecords"></param>
-        /// <returns></returns>
-        internal static bool WriteToFile(string path, bool append, List<Course> courseRecords)
-        {
-
-            string output = string.Empty;
-
-            foreach (var courseRecord in courseRecords)
-            {
-                output += courseRecord.CourseName + "\n";
-                output += courseRecord.Date + "\n";
-                output += courseRecord.Price + "\n";
-                output += courseRecord.Seats + "\n";
-            }
-            try
-            {
-                // Create a file to write to.
-                using (StreamWriter sw = new StreamWriter(path, append))
-                {
-                    sw.WriteLine(output);
-
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
+        
         /// <summary>
         /// Creates a new file
         /// </summary>
@@ -113,7 +76,6 @@ namespace CityAndGuildsDesAndTest
             FileReadReturnType myReturnType = new FileReadReturnType();
             // Open the text file using a stream reader.
 
-            List<Course> orderedCourses;
             try
             {
                 using (StreamReader sr = new StreamReader(path))
