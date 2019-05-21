@@ -38,7 +38,6 @@ namespace CityAndGuildsDesAndTest
         {
             try
             {
-                int rows = GetRows();
                 lblCourse.Text = this.course;
 
                 //pnlSeats.Controls.Clear();
@@ -58,26 +57,26 @@ namespace CityAndGuildsDesAndTest
                         pointY += 25;
                         i++;
 
-                        for (int j = 0; j < 12; j++)
+                        for (int seatNumber = 0; seatNumber < 12; seatNumber++)
                         {
 
-                            CustomTextBox a = new CustomTextBox();
-                            a.Width = 20;
-                            if (myCourse.Seats[j] == 'B')
+                            CustomTextBox myTextBox = new CustomTextBox();
+                            myTextBox.Width = 20;
+                            if (myCourse.Seats[seatNumber] == 'B')
                             {
-                                a.Text = "B";
-                                a.BackColor = Color.Blue;
+                                myTextBox.Text = "B";
+                                myTextBox.BackColor = Color.Blue;
                             }
                             else
                             {
-                                a.Text = (j + 1).ToString();
+                                myTextBox.Text = (seatNumber + 1).ToString();
                             }
 
-                            a.Location = new Point(pointX, pointY);
-                            a.Click += txtBox_Click;
-                            a.Seat = j;
-                            a.ElementNumber = myCourse.Element;
-                            pnlSeats.Controls.Add(a);
+                            myTextBox.Location = new Point(pointX, pointY);
+                            myTextBox.Click += txtBox_Click;
+                            myTextBox.Seat = seatNumber;
+                            myTextBox.ElementNumber = myCourse.Element;
+                            pnlSeats.Controls.Add(myTextBox);
                             //myTextBoxes.Add(a);
                             pointX += 30;
                         }
@@ -129,12 +128,6 @@ namespace CityAndGuildsDesAndTest
             lblPriceHeader.Text = "Cost";
             pnlSeats.Controls.Add(lblPriceHeader);
             myLabels.Add(lblPriceHeader);
-        }
-
-        private int GetRows()
-        {
-            return (myCourses.Count(item => item.CourseName == this.course));
-
         }
 
         //Sets text box content on click event and updates list elements
