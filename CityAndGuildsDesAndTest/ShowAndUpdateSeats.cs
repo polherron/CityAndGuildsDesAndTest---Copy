@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -140,7 +141,7 @@ namespace CityAndGuildsDesAndTest
 
             //Get list element to be updated
             int elementNumber = ((CustomTextBox)sender).ElementNumber;
-            
+
             if (((CustomTextBox)sender).BackColor == Color.Blue)
             {
                 ((CustomTextBox)sender).BackColor = Color.White;
@@ -165,7 +166,7 @@ namespace CityAndGuildsDesAndTest
 
                 //Insert new boking status
                 myString[stringPosition] = 'B';
-                
+
                 //set string value for list element's seats string
                 myCourses[elementNumber].Seats = myString.ToString();
             }
@@ -192,12 +193,39 @@ namespace CityAndGuildsDesAndTest
             //We need to change from overwrite to append after
             //the first record overwrites existing file.
             if (FileIO.WriteToFile(path, append, output))
-                { 
-                    MessageBox.Show("File Saved");
-                }
+            {
+                MessageBox.Show("File Saved");
+            }
             else
             {
                 MessageBox.Show("001-Fuile write error");
+            }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            {
+ 
+                PrintDocument p = new PrintDocument();
+                p.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+                {
+                    int yPos = 0;
+                    foreach (var course in myCourses)
+                    {
+                        e1.Graphics.DrawString(course.CourseName + "\n", new Font("Times New Roman", 18), new SolidBrush(Color.Black), new RectangleF(0, yPos, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+                        e1.Graphics.DrawString(course.Date + "\n", new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, yPos = yPos + 30, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+                        e1.Graphics.DrawString(course.Price + "\n", new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, yPos = yPos + 30, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+                        e1.Graphics.DrawString(course.Seats + "\n", new Font("Times New Roman", 12), new SolidBrush(Color.Black), new RectangleF(0, yPos = yPos + 30, p.DefaultPageSettings.PrintableArea.Width, p.DefaultPageSettings.PrintableArea.Height));
+                    }
+                };
+                try
+                {
+                    p.Print();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Exception Occured While Printing", ex);
+                }
             }
         }
     }
