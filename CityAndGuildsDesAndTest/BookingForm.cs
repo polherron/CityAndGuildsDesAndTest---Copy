@@ -143,7 +143,9 @@ namespace CityAndGuildsDesAndTest
             if (!File.Exists(path))
             {
                 // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(path))
+                using (
+                    
+                    StreamWriter sw = File.CreateText(path))
                 {
                     sw.WriteLine("\"" + txtCourseTitle.Text + "\"");
                     sw.WriteLine("\"" + txtCourseDate.Text + "\"");

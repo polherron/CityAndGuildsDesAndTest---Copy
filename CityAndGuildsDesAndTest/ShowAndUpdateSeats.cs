@@ -51,39 +51,35 @@ namespace CityAndGuildsDesAndTest
                 CreateFormColumnHeaders(pointX, pointY);
 
                 //Set up dynamically rendered text boxes
-                foreach (var item in myCourses)
+                foreach (var myCourse in myCourses)
                 {
-                    if (item.CourseName.Equals(course))
+                    if (myCourse.CourseName.Equals(course))
                     {
                         pointX = 30;
                         pointY += 20 + i * 20;
                         i++;
 
-                        for (int j = 0; j < 12; j++)
+                        for (int seatNo = 0; seatNo < 12; seatNo++)
                         {
-
-                            CustomTextBox a = new CustomTextBox();
-                            a.Width = 20;
-                            if (item.Seats[j] == 'B')
+                            CustomTextBox myTb = new CustomTextBox();
+                            myTb.Width = 20;
+                            if (myCourse.Seats[seatNo] == 'B')
                             {
-                                a.Text = "B";
+                                myTb.Text = "B";
                             }
                             else
                             {
-                                a.Text = (j + 1).ToString();
+                                myTb.Text = (seatNo + 1).ToString();
                             }
-
-                            a.Location = new Point(pointX, pointY);
-                            a.Click += txtBox_Click;
-                            a.Seat = j;
-                            a.ElementNumber = item.Element;
-                            pnlSeats.Controls.Add(a);
+                            myTb.Location = new Point(pointX, pointY);
+                            myTb.Click += txtBox_Click;
+                            myTb.Seat = seatNo;
+                            myTb.ElementNumber = myCourse.Element;
+                            pnlSeats.Controls.Add(myTb);
                             //myTextBoxes.Add(a);
                             pointX += 30;
                         }
-
-                        AddDateAndCostLabels(pointX, pointY, item);
-
+                        AddDateAndCostLabels(pointX, pointY, myCourse);
                     }
                 }
                 pnlSeats.Show();
@@ -189,15 +185,15 @@ namespace CityAndGuildsDesAndTest
                 {
                     string myString = string.Empty;
 
-                    foreach (var item in myCourses)
+                    foreach (var myCourse in myCourses)
                     {
-                        myString += String.Format(@"{0}",item.CourseName);
+                        myString += String.Format(@"{0}", myCourse.CourseName);
                         myString += Environment.NewLine;
-                        myString += String.Format(@"{0}", item.Date);
+                        myString += String.Format(@"{0}", myCourse.Date);
                         myString += Environment.NewLine;
-                        myString += String.Format(@"{0}", item.Price);
+                        myString += String.Format(@"{0}", myCourse.Price);
                         myString += Environment.NewLine;
-                        myString += String.Format(@"{0}", item.Seats);
+                        myString += String.Format(@"{0}", myCourse.Seats);
                         myString += Environment.NewLine;
                     }
 
